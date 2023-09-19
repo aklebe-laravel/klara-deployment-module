@@ -16,7 +16,7 @@ class KlaraDeploymentServiceProvider extends ModuleBaseServiceProvider
     /**
      * @var string $moduleNameLower
      */
-    protected string $moduleNameLower = 'klaradeployment';
+    protected string $moduleNameLower = 'klara-deployment';
 
     /**
      * Boot the application events.

@@ -11,6 +11,6 @@
 |
 */
 
-Route::prefix('klaradeployment')->group(function() {
+Route::prefix('klara-deployment')->group(function() {
     Route::get('/', 'KlaraDeploymentController@index');
 });

@@ -1,7 +1,7 @@
 @php
     /**
      * @var Modules\DataTable\Http\Livewire\DataTable\Base\BaseDataTable $this
-     * @var \Modules\KlaraDeployment\Models\Deployment $item
+     * @var Modules\KlaraDeployment\Models\Deployment $item
      * @var string $name
      * @var mixed $value
      **/

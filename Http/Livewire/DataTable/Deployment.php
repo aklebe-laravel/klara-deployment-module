@@ -79,7 +79,7 @@ class Deployment extends BaseDataTable
                 'label'      => __('Description'),
                 'visible'    => true,
                 'searchable' => true,
-                'view'       => 'klaradeployment::livewire.js-dt.tables.columns.deployment-details',
+                'view'       => 'klara-deployment::livewire.js-dt.tables.columns.deployment-details',
                 'css_all'    => 'w-30',
             ],
         ];

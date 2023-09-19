@@ -1,6 +1,6 @@
 {
     "name": "KlaraDeployment",
-    "alias": "klaradeployment",
+    "alias": "klara-deployment",
     "description": "",
     "keywords": [],
     "priority": 5000,

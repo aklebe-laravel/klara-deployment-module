@@ -111,7 +111,7 @@ class Deployment extends ModelBase
 //                                        'description'  => __('Deployment tasks assigned to this deployment'),
 //                                        'css_group'    => 'col-12',
 //                                        'options'      => [
-//                                            'table' => 'klaradeployment::data-table.deployment-task',
+//                                            'table' => 'klara-deployment::data-table.deployment-task',
 //                                        ],
 //                                        'validator'    => [
 //                                            'nullable',
@@ -135,7 +135,7 @@ class Deployment extends ModelBase
                                         'description'  => __('Deployment tasks assigned to this deployment'),
                                         'css_group'    => 'col-12',
                                         'options'      => [
-                                            'table' => 'klaradeployment::data-table.deployment-task',
+                                            'table' => 'klara-deployment::data-table.deployment-task',
                                         ],
                                         'validator'    => [
                                             'nullable',

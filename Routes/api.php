@@ -13,6 +13,6 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/klaradeployment', function (Request $request) {
+Route::middleware('auth:api')->get('/klara-deployment', function (Request $request) {
     return $request->user();
 });

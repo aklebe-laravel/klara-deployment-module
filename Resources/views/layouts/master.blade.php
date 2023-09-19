@@ -7,13 +7,13 @@
         <title>Module KlaraDeployment</title>
 
        {{-- Laravel Vite - CSS File --}}
-       {{-- {{ module_vite('build-klaradeployment', 'Resources/assets/sass/app.scss') }} --}}
+       {{-- {{ module_vite('build-klara-deployment', 'Resources/assets/sass/app.scss') }} --}}
 
     </head>
     <body>
         @yield('content')
 
         {{-- Laravel Vite - JS File --}}
-        {{-- {{ module_vite('build-klaradeployment', 'Resources/assets/js/app.js') }} --}}
+        {{-- {{ module_vite('build-klara-deployment', 'Resources/assets/js/app.js') }} --}}
     </body>
 </html>

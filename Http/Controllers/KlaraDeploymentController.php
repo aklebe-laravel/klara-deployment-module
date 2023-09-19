@@ -14,7 +14,7 @@ class KlaraDeploymentController extends Controller
      */
     public function index()
     {
-        return view('klaradeployment::index');
+        return view('klara-deployment::index');
     }
 
     /**
@@ -23,7 +23,7 @@ class KlaraDeploymentController extends Controller
      */
     public function create()
     {
-        return view('klaradeployment::create');
+        return view('klara-deployment::create');
     }
 
     /**
@@ -43,7 +43,7 @@ class KlaraDeploymentController extends Controller
      */
     public function show($id)
     {
-        return view('klaradeployment::show');
+        return view('klara-deployment::show');
     }
 
     /**
@@ -53,7 +53,7 @@ class KlaraDeploymentController extends Controller
      */
     public function edit($id)
     {
-        return view('klaradeployment::edit');
+        return view('klara-deployment::edit');
     }
 
     /**
