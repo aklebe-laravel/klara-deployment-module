@@ -1,0 +1,11 @@
+{
+    "name": "KlaraDeployment",
+    "alias": "klaradeployment",
+    "description": "",
+    "keywords": [],
+    "priority": 1000,
+    "providers": [
+        "Modules\\KlaraDeployment\\Providers\\KlaraDeploymentServiceProvider"
+    ],
+    "files": []
+}
