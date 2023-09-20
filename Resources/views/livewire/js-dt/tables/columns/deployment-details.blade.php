@@ -37,7 +37,7 @@
     @if($this->editable)
 
         {{-- all editable buttons --}}
-        {{--        @include('datatable::livewire.js-dt.tables.columns.buttons.editable-buttons')--}}
+        {{--        @include('data-table::livewire.js-dt.tables.columns.buttons.editable-buttons')--}}
 
     @endif
 </div>

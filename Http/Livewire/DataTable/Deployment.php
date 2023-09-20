@@ -48,7 +48,7 @@ class Deployment extends BaseDataTable
             [
                 'name'     => 'is_enabled',
                 'label'    => __('Enabled'),
-                'view'     => 'datatable::livewire.js-dt.tables.columns.bool-red-green',
+                'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'  => 'text-center w-5',
                 'sortable' => true,
             ],
@@ -64,7 +64,7 @@ class Deployment extends BaseDataTable
                 'label'      => __('Label'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'datatable::livewire.js-dt.tables.columns.value-click-edit',
+                'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
                 'css_all'    => 'w-30',
             ],
             [
@@ -72,7 +72,7 @@ class Deployment extends BaseDataTable
                 'label'      => __('Updated'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'datatable::livewire.js-dt.tables.columns.datetime-since',
+                'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
             ],
             [
                 'name'       => 'description',
@@ -117,7 +117,7 @@ class Deployment extends BaseDataTable
             'label'   => 'Actions',
             //            'visible' => fn() => $this->editable,
             'visible' => true,
-            'view'    => 'datatable::livewire.js-dt.tables.columns.run',
+            'view'    => 'data-table::livewire.js-dt.tables.columns.run',
             'css_all' => 'text-end w-15',
         ];
     }

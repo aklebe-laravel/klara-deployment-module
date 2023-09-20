@@ -1,7 +1,7 @@
 <?php
 return [
 //    '__useless__'       => [
-//        'datatable' => [
+//        'data-table' => [
 //            // delete box
 //            'delete'    => [
 //                'title'   => 'Delete Item',
@@ -15,7 +15,7 @@ return [
 //        ],
 //    ],
     'deployment'       => [
-        'datatable' => [
+        'data-table' => [
             // launch
             'launchItem'    => [
                 'title'   => 'Launch Item',

@@ -34,14 +34,14 @@ class DeploymentTask extends BaseDataTable
             [
                 'name'       => 'is_enabled',
                 'label'      => __('Enabled'),
-                'view'       => 'datatable::livewire.js-dt.tables.columns.bool-red-green',
+                'view'       => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'    => 'text-center w-5',
                 'sortable'   => true,
             ],
 //            [
 //                'name'       => 'pivot.is_enabled',
 //                'label'      => __('Enabled'),
-//                'view'       => 'datatable::livewire.js-dt.tables.columns.bool-red-green',
+//                'view'       => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
 //                'css_all'    => 'text-center w-5',
 //                'sortable'   => true,
 //            ],
@@ -57,7 +57,7 @@ class DeploymentTask extends BaseDataTable
                 'label'      => __('Label'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'datatable::livewire.js-dt.tables.columns.value-click-edit',
+                'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
                 'css_all'    => 'w-30',
             ],
             [
@@ -65,7 +65,7 @@ class DeploymentTask extends BaseDataTable
                 'label'      => __('Updated'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'datatable::livewire.js-dt.tables.columns.datetime-since',
+                'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
             ],
             [
                 'name'       => 'description',
