@@ -4,7 +4,7 @@ namespace Modules\KlaraDeployment\Services\TaskCommand;
 
 use Modules\KlaraDeployment\Models\Deployment;
 use Modules\KlaraDeployment\Models\DeploymentTask;
-use Modules\KlaraDeployment\Services\GitService;
+use Modules\SystemBase\Services\GitService;
 
 class Git extends Base
 {
