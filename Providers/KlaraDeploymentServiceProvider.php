@@ -2,9 +2,8 @@
 
 namespace Modules\KlaraDeployment\Providers;
 
-use App\Http\Kernel;
 use Modules\KlaraDeployment\Console\Deployment;
-use Modules\SystemBase\Providers\ModuleBaseServiceProvider;
+use Modules\SystemBase\Providers\Base\ModuleBaseServiceProvider;
 
 class KlaraDeploymentServiceProvider extends ModuleBaseServiceProvider
 {
