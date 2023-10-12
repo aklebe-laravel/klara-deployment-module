@@ -48,8 +48,8 @@ class DeploymentTaskService extends BaseService
             return 0;
         }
 
-        $this->info(sprintf("Run Task: '%s' ('%s' - position: %d)", $deploymentTask->label, $deploymentTask->code,
-            $deploymentTask->pivot->position));
+//        $this->info(sprintf("Run Task: '%s' ('%s' - position: %d)", $deploymentTask->label, $deploymentTask->code,
+//            $deploymentTask->pivot->position));
 
         return $this->processTaskCommandList($deploymentTask->command_list);
     }
@@ -68,8 +68,8 @@ class DeploymentTaskService extends BaseService
             return 0;
         }
 
-        $this->info(sprintf("Run Task: '%s' ('%s' - position: %d)", $deploymentTask->label, $deploymentTask->code,
-            $deploymentTask->pivot->position));
+//        $this->info(sprintf("Run Task: '%s' ('%s' - position: %d)", $deploymentTask->label, $deploymentTask->code,
+//            $deploymentTask->pivot->position));
 
         return $this->simulateTaskCommandList($deploymentTask->command_list);
     }

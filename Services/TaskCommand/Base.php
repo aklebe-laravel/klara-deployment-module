@@ -6,6 +6,7 @@ use Exception;
 use Illuminate\Support\Arr;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Support\Str;
+use Modules\KlaraDeployment\Events\DeploymentConsole;
 use Modules\KlaraDeployment\Models\Deployment;
 use Modules\KlaraDeployment\Models\DeploymentTask;
 use Modules\KlaraDeployment\Services\DeploymentTaskParserService;
@@ -32,6 +33,13 @@ class Base extends BaseService
     protected Deployment $deployment;
 
     /**
+     * Broadcast Container
+     *
+     * @var array
+     */
+    protected array $broadcastDataContainer = [];
+
+    /**
      * @param  DeploymentTask  $deploymentTask
      * @param  Deployment  $deployment
      */
@@ -41,6 +49,49 @@ class Base extends BaseService
 
         $this->deploymentTask = $deploymentTask;
         $this->deployment = $deployment;
+
+        $this->broadcastDataContainer = self::getBroadcastDataContainer($deploymentTask, $deployment);
+    }
+
+    /**
+     * @param  DeploymentTask|null  $deploymentTask
+     * @param  Deployment|null  $deployment
+     * @return array
+     */
+    public static function getBroadcastDataContainer(
+        ?DeploymentTask $deploymentTask = null,
+        ?Deployment $deployment = null
+    ): array {
+        $container = [
+            'deployment_id'                       => $deployment ? $deployment->getKey() : 0,
+            'deployment_label'                    => $deployment ? $deployment->label : '',
+            'deployment_task_id'                  => $deploymentTask ? $deploymentTask->getKey() : 0,
+            'deployment_task_label'               => $deploymentTask ? $deploymentTask->label : '',
+            'deployment_task_total_command_count' => 0,
+            'deployment_task_command'             => '',
+            'step'                                => 1,
+            'steps_total'                         => 1,
+            'message'                             => '',
+            'timestamp'                           => date('H:i:s'),
+        ];
+
+        return $container;
+    }
+
+    /**
+     * @param  string  $message
+     * @param  bool  $updateTimestamp
+     * @return mixed
+     */
+    public function dispatchBroadcast(string $message = '', bool $updateTimestamp = true): mixed
+    {
+        if ($message) {
+            $this->broadcastDataContainer['message'] = $message;
+        }
+        if ($updateTimestamp) {
+            $this->broadcastDataContainer['timestamp'] = date('H:i:s');
+        }
+        return DeploymentConsole::dispatch($this->broadcastDataContainer);
     }
 
     /**
@@ -82,6 +133,8 @@ class Base extends BaseService
         }
 
         $this->debug(sprintf("Executing '%s' command: %s", $thisName, $commandMethodName));
+        $this->broadcastDataContainer['deployment_task_command'] = $thisName;
+
 
         $commandMethodName = $runMethodPrefix.ucfirst(Str::camel($commandMethodName));
         if (method_exists($this, $commandMethodName)) {
@@ -181,7 +234,7 @@ class Base extends BaseService
 
         // Parse the commands now ...
         $result = $parser->parseArray($commandData);
-        $this->debug('parsed command data: '.print_r($result, true));
+//        $this->debug('parsed command data: '.print_r($result, true));
         return $result;
     }
 

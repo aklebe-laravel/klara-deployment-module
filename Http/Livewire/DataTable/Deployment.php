@@ -28,7 +28,7 @@ class Deployment extends BaseDataTable
         parent::initMount();
 
         // @todo: Not sure mount() is the right place for init this once
-        $this->setSortAllCollections('label', 'asc');
+        $this->setSortAllCollections('rating', 'desc');
     }
 
     /**
@@ -46,19 +46,27 @@ class Deployment extends BaseDataTable
                 'css_all'    => 'text-muted font-monospace text-end w-5',
             ],
             [
+                'name'       => 'rating',
+                'label'      => __('Rating'),
+                'searchable' => true,
+                'sortable'   => true,
+                'format'     => 'number',
+                'css_all'    => 'font-monospace text-end w-5',
+            ],
+            [
                 'name'     => 'is_enabled',
                 'label'    => __('Enabled'),
                 'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'  => 'text-center w-5',
                 'sortable' => true,
             ],
-            [
-                'name'       => 'code',
-                'label'      => __('Code'),
-                'searchable' => true,
-                'sortable'   => true,
-                'css_all'    => 'w-10',
-            ],
+            //            [
+            //                'name'       => 'code',
+            //                'label'      => __('Code'),
+            //                'searchable' => true,
+            //                'sortable'   => true,
+            //                'css_all'    => 'w-10',
+            //            ],
             [
                 'name'       => 'label',
                 'label'      => __('Label'),
@@ -67,20 +75,20 @@ class Deployment extends BaseDataTable
                 'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
                 'css_all'    => 'w-30',
             ],
-            [
-                'name'       => 'updated_at',
-                'label'      => __('Updated'),
-                'searchable' => true,
-                'sortable'   => true,
-                'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
-            ],
+            //            [
+            //                'name'       => 'updated_at',
+            //                'label'      => __('Updated'),
+            //                'searchable' => true,
+            //                'sortable'   => true,
+            //                'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
+            //            ],
             [
                 'name'       => 'description',
                 'label'      => __('Description'),
                 'visible'    => true,
                 'searchable' => true,
                 'view'       => 'klara-deployment::livewire.js-dt.tables.columns.deployment-details',
-                'css_all'    => 'w-30',
+                'css_all'    => 'w-40',
             ],
         ];
     }
