@@ -37,7 +37,9 @@ class DeploymentConsole implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        $channelName = 'deployments.'.$this->processContainer['deployment_id'];
+//        $channelName = 'deployments.'.$this->processContainer['deployment_id'];
+        $channelName = 'deployments.default-console';
+
         //        Log::debug(__METHOD__);
         //        Log::debug($channelName);
         return [
