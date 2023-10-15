@@ -25,8 +25,8 @@ class Process extends Base
      */
     public function runExec($commandData): bool
     {
-//        Log::debug("Command data: ".print_r($commandData, true));
-//        return false;
+        //        Log::debug("Command data: ".print_r($commandData, true));
+        //        return false;
 
         if (!($line = data_get($commandData, 'line'))) {
             $this->error("Missing parameter line");
@@ -37,17 +37,34 @@ class Process extends Base
             $line = DeployEnvBase::addCommandOptions($line, $options);
         }
 
-//        Log::debug($line, [__METHOD__]);
-//        return false;
+        //        Log::debug($line, [__METHOD__]);
+        //        return false;
 
         //        $this->debug(__METHOD__);
         $this->dispatchBroadcast("Starting process: '$line'");
 
 
         //        $line = "ls -alph";
+
+        /**
+         * @todo: still have issue "sh: 1: vite not found"
+         */
+
+        //        // Symphony version
+        //        $result = new \Symfony\Component\Process\Process([$line], base_path(), getenv());
+        //        $result->start(function (string $type, string $output) {
+        //            $this->dispatchBroadcast($output);
+        //        });
+        //        $result->wait();
+        //        return $result->isSuccessful();
+
+
+        // Laravel version
         $result = \Illuminate\Support\Facades\Process::forever()
             // force app root
             ->path(base_path())
+            //            // try to fix error: sh: 1: ...
+            //            ->env(['PATH' => getenv('PATH')])
             // start async call ...
             ->start($line, function (string $type, string $output) {
 
@@ -55,7 +72,9 @@ class Process extends Base
 
             });
 
-        return $result->wait()->successful();
+        $result = $result->wait();
+        //        $this->dispatchBroadcast("Finished process: '$line'");
+        return $result->successful();
     }
 
     /**

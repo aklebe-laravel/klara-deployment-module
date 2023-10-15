@@ -8,7 +8,7 @@
 
     $_commandTags = [];
     foreach ($item->enabledTasks as $_task) {
-        foreach ($_task->command_list as $_command) {
+        foreach ($_task->command_list ?? [] as $_command) {
             $_cmd = data_get($_command, 'cmd', '???');
             $_commandTags[] = $_cmd;
         }

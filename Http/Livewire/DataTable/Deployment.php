@@ -46,19 +46,19 @@ class Deployment extends BaseDataTable
                 'css_all'    => 'text-muted font-monospace text-end w-5',
             ],
             [
+                'name'     => 'is_enabled',
+                'label'    => __('Enabled'),
+                'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
+                'css_all'  => 'text-center w-5',
+                'sortable' => true,
+            ],
+            [
                 'name'       => 'rating',
                 'label'      => __('Rating'),
                 'searchable' => true,
                 'sortable'   => true,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
-            ],
-            [
-                'name'     => 'is_enabled',
-                'label'    => __('Enabled'),
-                'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
-                'css_all'  => 'text-center w-5',
-                'sortable' => true,
             ],
             //            [
             //                'name'       => 'code',
