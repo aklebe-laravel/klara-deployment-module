@@ -40,6 +40,8 @@ class Deployment extends ModelBase
     {
         $parentFormData = parent::getFormElements($jsonResource);
 
+        $defaultSettings = $this->getDefaultFormSettingsByPermission();
+
         /** @var \Modules\KlaraDeployment\Models\Deployment $jsonResource */
         return [
             ... $parentFormData,
@@ -61,14 +63,14 @@ class Deployment extends ModelBase
                                             'integer'
                                         ],
                                     ],
-                                    'is_enabled'   => [
+                                    'is_enabled'  => [
                                         'html_element' => 'select_yes_no',
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Deployment'),
                                         'validator'    => 'bool',
                                         'css_group'    => 'col-3',
                                     ],
-                                    'rating'             => [
+                                    'rating'      => [
                                         'html_element' => 'number_int',
                                         'label'        => __('Rating'),
                                         'description'  => __('Your rated value (default 5000)'),
@@ -79,7 +81,7 @@ class Deployment extends ModelBase
                                         ],
                                         'css_group'    => 'col-3',
                                     ],
-                                    'code'         => [
+                                    'code'        => [
                                         'html_element' => 'text',
                                         'label'        => __('Code'),
                                         'description'  => __('Unique deployment code'),
@@ -90,7 +92,7 @@ class Deployment extends ModelBase
                                         ],
                                         'css_group'    => 'col-6',
                                     ],
-                                    'label'        => [
+                                    'label'       => [
                                         'html_element' => 'text',
                                         'label'        => __('Label'),
                                         'description'  => __('Deployment title'),
@@ -112,9 +114,9 @@ class Deployment extends ModelBase
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
-                                    'var_list' => [
+                                    'var_list'    => [
                                         'html_element' => 'object_to_json',
-//                                        'value' => function() { return 'xxx'.json_encode($this->jsonResource->var_list, JSON_PRETTY_PRINT);},
+                                        //                                        'value' => function() { return 'xxx'.json_encode($this->jsonResource->var_list, JSON_PRETTY_PRINT);},
                                         'label'        => __('Var List'),
                                         'description'  => __('Variables as formatted json. See README.md for details'),
                                         'validator'    => [
@@ -127,30 +129,6 @@ class Deployment extends ModelBase
                                 ],
                             ],
                         ],
-//                        [
-//                            // don't show if creating a new object ...
-//                            'disabled' => !$jsonResource->getKey(),
-//                            'tab'      => [
-//                                'label' => __('Var List'),
-//                            ],
-//                            'content'  => [
-//                                'form_elements' => [
-//                                    'tasks' => [
-//                                        'html_element' => 'element-dt-split-default',
-//                                        'label'        => __('Vars'),
-//                                        'description'  => __('Deployment tasks assigned to this deployment'),
-//                                        'css_group'    => 'col-12',
-//                                        'options'      => [
-//                                            'table' => 'klara-deployment::data-table.deployment-task',
-//                                        ],
-//                                        'validator'    => [
-//                                            'nullable',
-//                                            'array'
-//                                        ],
-//                                    ],
-//                                ],
-//                            ],
-//                        ],
                         [
                             // don't show if creating a new object ...
                             'disabled' => !$jsonResource->getKey(),
@@ -160,12 +138,19 @@ class Deployment extends ModelBase
                             'content'  => [
                                 'form_elements' => [
                                     'tasks' => [
-                                        'html_element' => 'element-dt-split-default',
+                                        'html_element' => $defaultSettings['element_dt'],
                                         'label'        => __('Tasks'),
                                         'description'  => __('Deployment tasks assigned to this deployment'),
                                         'css_group'    => 'col-12',
                                         'options'      => [
-                                            'table' => 'klara-deployment::data-table.deployment-task',
+                                            'form'          => 'klara-deployment::form.deployment-task',
+                                            'table'         => 'klara-deployment::data-table.deployment-task',
+                                            'table_options' => [
+                                                'hasCommands' => $defaultSettings['can_manage'],
+                                                'editable'    => $defaultSettings['can_manage'],
+                                                'canAddRow'   => $defaultSettings['can_manage'],
+                                                'removable'   => $defaultSettings['can_manage'],
+                                            ],
                                         ],
                                         'validator'    => [
                                             'nullable',

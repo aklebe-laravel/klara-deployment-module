@@ -7,6 +7,11 @@ use Modules\DataTable\Http\Livewire\DataTable\Base\BaseDataTable;
 class DeploymentTask extends BaseDataTable
 {
     /**
+     * @var array|string[]
+     */
+    protected array $objectRelations = ['deployments'];
+
+    /**
      * @return void
      */
     protected function initMount(): void
@@ -40,6 +45,21 @@ class DeploymentTask extends BaseDataTable
                 'sortable' => true,
             ],
             [
+                'name'     => 'deployment.pivot.is_enabled',
+                'label'    => __('Enabled'),
+                'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
+                'css_all'  => 'text-center w-5',
+                'sortable' => true,
+            ],
+            [
+                'name'       => 'deployment.pivot.position',
+                'label'      => __('Position'),
+                'searchable' => true,
+                'sortable'   => true,
+                'format'     => 'number',
+                'css_all'    => 'font-monospace text-end w-5',
+            ],
+            [
                 'name'       => 'rating',
                 'label'      => __('Rating'),
                 'searchable' => true,
@@ -47,20 +67,6 @@ class DeploymentTask extends BaseDataTable
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
             ],
-            //            [
-            //                'name'       => 'pivot.is_enabled',
-            //                'label'      => __('Enabled'),
-            //                'view'       => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
-            //                'css_all'    => 'text-center w-5',
-            //                'sortable'   => true,
-            //            ],
-            //            [
-            //                'name'       => 'code',
-            //                'label'      => __('Code'),
-            //                'searchable' => true,
-            //                'sortable'   => true,
-            //                'css_all'    => 'w-20',
-            //            ],
             [
                 'name'       => 'label',
                 'label'      => __('Label'),
@@ -74,6 +80,7 @@ class DeploymentTask extends BaseDataTable
                 'label'      => __('Description'),
                 'visible'    => true,
                 'searchable' => true,
+//                'view'       => 'data-table::livewire.js-dt.tables.columns.model-info',
                 'css_all'    => 'w-40',
             ],
             [
@@ -85,28 +92,5 @@ class DeploymentTask extends BaseDataTable
             ],
         ];
     }
-
-    //    /**
-    //     * The base builder before all filter manipulations.
-    //     * Usually used for all collections (default, selected, unselected), but can overwritten.
-    //     *
-    //     * @param  string  $collectionName
-    //     *
-    //     * @return Builder|null
-    //     */
-    //    public function getBaseBuilder(string $collectionName): ?Builder
-    //    {
-    //        /** @var Builder $builder */
-    //        $builder = (SystemHelper::NamespaceEloquentModel.$this->getModelName())::query();//->withPivot(['is_enabled', 'position']);
-    //        Log::debug($builder->toSql());
-    //
-    ////        if ($this->useUserFilter) {
-    ////
-    ////            $builder->whereUserId($this->getUserId());
-    ////
-    ////        }
-    //
-    //        return $builder;
-    //    }
 
 }

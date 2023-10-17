@@ -3,6 +3,7 @@
 namespace Modules\KlaraDeployment\Forms;
 
 use Illuminate\Http\Resources\Json\JsonResource;
+use Illuminate\Support\Facades\Log;
 use Modules\Form\Forms\Base\ModelBase;
 
 class DeploymentTask extends ModelBase
@@ -16,6 +17,7 @@ class DeploymentTask extends ModelBase
      * @var array[]
      */
     protected array $objectRelations = [
+        'deployments'
     ];
 
     /**
@@ -39,7 +41,7 @@ class DeploymentTask extends ModelBase
     {
         $parentFormData = parent::getFormElements($jsonResource);
 
-        /** @var \Modules\KlaraDeployment\Models\DeploymentTask $jsonResource */
+        /** @var JsonResource|\Modules\KlaraDeployment\Models\DeploymentTask $jsonResource */
         return [
             ... $parentFormData,
             'title'        => $this->makeFormTitle($jsonResource, 'name'),
@@ -67,7 +69,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => 'bool',
                                         'css_group'    => 'col-3',
                                     ],
-                                    'rating'             => [
+                                    'rating'       => [
                                         'html_element' => 'number_int',
                                         'label'        => __('Rating'),
                                         'description'  => __('Your rated value (default 5000)'),
@@ -137,22 +139,23 @@ class DeploymentTask extends ModelBase
                             ],
                         ],
                         [
+                            'visible' => $this->jsonResource->deployment->id ?? false, // visible if parent deployment is the caller
                             'tab'     => [
                                 'label' => __('Deployment Relation'),
                             ],
                             'content' => [
                                 'form_elements' => [
-                                    'pivot.is_enabled'   => [
+                                    'deployment.pivot.is_enabled' => [
                                         'html_element' => 'select_yes_no',
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Task'),
                                         'validator'    => 'bool',
                                         'css_group'    => 'col-3',
                                     ],
-                                    'pivot.position'             => [
+                                    'deployment.pivot.position'   => [
                                         'html_element' => 'number_int',
-                                        'label'        => __('Rating'),
-                                        'description'  => __('Your rated value (default 5000)'),
+                                        'label'        => __('Position'),
+                                        'description'  => __('Position in parent deployment (default 5000)'),
                                         'validator'    => [
                                             'integer',
                                             'Min:200',
