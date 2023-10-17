@@ -5,9 +5,12 @@ namespace Modules\KlaraDeployment\Models;
 use Illuminate\Database\Eloquent\Casts\Attribute;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Modules\SystemBase\Models\Base\TraitModelAddMeta;
 
 class DeploymentTask extends Model
 {
+    use TraitModelAddMeta;
+
     /**
      * @var array
      */
@@ -37,12 +40,6 @@ class DeploymentTask extends Model
     ];
 
     /**
-     * its like a parent id
-     * @var int|null
-     */
-    public ?int $relatedPivotModelId = null ;
-
-    /**
      * Ordered by position ASC.
      * If positions equal, ordered by created_at ASC.
      *
@@ -55,7 +52,7 @@ class DeploymentTask extends Model
             ->withTimestamps()
             ->orderByPivot('position')
             ->orderByPivot('created_at')
-//            ->wherePivot('deployment_id', $this->id)
+            //            ->wherePivot('deployment_id', $this->id)
             ->withPivot(['is_enabled', 'position', 'var_list']);
     }
 
@@ -72,16 +69,9 @@ class DeploymentTask extends Model
             }
 
             return null;
-//        }, set: function ($v) {
-//            return $v;
+            //        }, set: function ($v) {
+            //            return $v;
         },);
     }
-
-
-//    public function addParentDeploymentPivot(int $deploymentId)
-//    {
-//        $this->deployment = $this->deployments()->wherePivot('deployment_id', $deploymentId)->first();
-//        return $this->deployment;
-//    }
 
 }

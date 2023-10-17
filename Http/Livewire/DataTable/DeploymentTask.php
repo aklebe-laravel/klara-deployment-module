@@ -2,6 +2,7 @@
 
 namespace Modules\KlaraDeployment\Http\Livewire\DataTable;
 
+use Illuminate\Database\Eloquent\Builder;
 use Modules\DataTable\Http\Livewire\DataTable\Base\BaseDataTable;
 
 class DeploymentTask extends BaseDataTable
@@ -19,8 +20,14 @@ class DeploymentTask extends BaseDataTable
         parent::initMount();
 
         // @todo: Not sure mount() is the right place for init this once
-        $this->setSortAllCollections('rating', 'desc');
-        $this->setSortAllCollections('updated_at', 'desc');
+        if (data_get($this->parentData, 'id', false)) {
+            $this->setSortAllCollections('deployment.pivot.position', 'asc');
+            $this->setSortAllCollections('rating', 'desc');
+        } else {
+            $this->setSortAllCollections('rating', 'desc');
+            $this->setSortAllCollections('deployments_count', 'desc');
+            $this->setSortAllCollections('updated_at', 'desc');
+        }
     }
 
     /**
@@ -50,6 +57,7 @@ class DeploymentTask extends BaseDataTable
                 'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'  => 'text-center w-5',
                 'sortable' => true,
+                'visible' => (bool)data_get($this->parentData, 'id', false),
             ],
             [
                 'name'       => 'deployment.pivot.position',
@@ -58,10 +66,19 @@ class DeploymentTask extends BaseDataTable
                 'sortable'   => true,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
+                'visible' => (bool)data_get($this->parentData, 'id', false),
             ],
             [
                 'name'       => 'rating',
                 'label'      => __('Rating'),
+                'searchable' => true,
+                'sortable'   => true,
+                'format'     => 'number',
+                'css_all'    => 'font-monospace text-end w-5',
+            ],
+            [
+                'name'       => 'deployments_count',
+                'label'      => __('Rels'),
                 'searchable' => true,
                 'sortable'   => true,
                 'format'     => 'number',
@@ -73,7 +90,7 @@ class DeploymentTask extends BaseDataTable
                 'searchable' => true,
                 'sortable'   => true,
                 'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
-                'css_all'    => 'w-30',
+                'css_all'    => 'w-25',
             ],
             [
                 'name'       => 'description',
@@ -81,7 +98,7 @@ class DeploymentTask extends BaseDataTable
                 'visible'    => true,
                 'searchable' => true,
 //                'view'       => 'data-table::livewire.js-dt.tables.columns.model-info',
-                'css_all'    => 'w-40',
+                'css_all'    => 'w-35',
             ],
             [
                 'name'       => 'updated_at',
@@ -91,6 +108,17 @@ class DeploymentTask extends BaseDataTable
                 'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
             ],
         ];
+    }
+
+    /**
+     * @param  string  $collectionName
+     * @return Builder|null
+     * @throws \Exception
+     */
+    public function getBaseBuilder(string $collectionName): ?Builder
+    {
+        // add "deployments_count"
+        return parent::getBaseBuilder($collectionName)->withCount('deployments');
     }
 
 }
