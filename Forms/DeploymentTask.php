@@ -155,7 +155,7 @@ class DeploymentTask extends ModelBase
                                     'deployment.pivot.position'   => [
                                         'html_element' => 'number_int',
                                         'label'        => __('Position'),
-                                        'description'  => __('Position in parent deployment (default 5000)'),
+                                        'description'  => __('Position in parent deployment (default 1000)'),
                                         'validator'    => [
                                             'integer',
                                             'Min:200',
