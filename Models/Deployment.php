@@ -4,10 +4,15 @@ namespace Modules\KlaraDeployment\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Str;
+use Modules\Acl\Models\Base\TraitBaseModel;
 use Modules\SystemBase\Helpers\SystemHelper;
 
 class Deployment extends Model
 {
+    use TraitBaseModel;
+
     /**
      * @var array
      */
@@ -63,5 +68,26 @@ class Deployment extends Model
         return $this->belongsToMany(DeploymentResult::class)->withTimestamps();
     }
 
+    /**
+     * After replicated/duplicated/copied
+     * but before save()
+     *
+     * @param  Model  $fromItem
+     * @return void
+     */
+    public function afterReplicated(Model $fromItem): void
+    {
+        $this->code = $this->code . '-' .Str::orderedUuid()->toString();
+    }
+
+    /**
+     * Returns relations to replicate.
+     *
+     * @return array
+     */
+    public function getReplicateRelations(): array
+    {
+        return ['tasks'];
+    }
 
 }
