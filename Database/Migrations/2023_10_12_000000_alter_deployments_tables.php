@@ -25,7 +25,12 @@ return new class () extends Migration {
         }
     }
 
-    protected function createAssignmentTable($typeName, callable $tableDeclaration)
+    /**
+     * Reverse the migrations.
+     *
+     * @return void
+     */
+    public function down()
     {
         Schema::table('deployments', function (Blueprint $table) {
             $table->dropColumn('rating');
