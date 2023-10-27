@@ -52,7 +52,7 @@ class DeploymentTask extends BaseDataTable
                 'sortable' => true,
             ],
             [
-                'name'     => 'deployment.pivot.is_enabled',
+                'name'     => 'pivot.is_enabled',
                 'label'    => __('Enabled'),
                 'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'  => 'text-center w-5',
@@ -60,7 +60,7 @@ class DeploymentTask extends BaseDataTable
                 'visible' => (bool)data_get($this->parentData, 'id', false),
             ],
             [
-                'name'       => 'deployment.pivot.position',
+                'name'       => 'pivot.position',
                 'label'      => __('Position'),
                 'searchable' => true,
                 'sortable'   => true,
@@ -111,6 +111,8 @@ class DeploymentTask extends BaseDataTable
     }
 
     /**
+     * used for all not self::COLLECTION_NAME_SELECTED_ITEMS
+     *
      * @param  string  $collectionName
      * @return Builder|null
      * @throws \Exception
@@ -119,6 +121,24 @@ class DeploymentTask extends BaseDataTable
     {
         // add "deployments_count"
         return parent::getBaseBuilder($collectionName)->withCount('deployments');
+    }
+
+    /**
+     * used for all self::COLLECTION_NAME_SELECTED_ITEMS
+     *
+     * @param  string  $collectionName
+     * @return \Illuminate\Support\Collection|null
+     */
+    public function getFixCollection(string $collectionName): ?\Illuminate\Support\Collection
+    {
+        if ($collectionName === self::COLLECTION_NAME_SELECTED_ITEMS) {
+            if ($this->parentData['id']) {
+                $user = app(\Modules\KlaraDeployment\Models\Deployment::class)->with([])->find($this->parentData['id']);
+                return $user->tasks;
+            }
+        }
+
+        return parent::getFixCollection($collectionName);
     }
 
 }

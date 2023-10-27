@@ -75,7 +75,7 @@ class DeploymentTask extends Model
             return null;
             //        }, set: function ($v) {
             //            return $v;
-        },);
+        });
     }
 
     /**
