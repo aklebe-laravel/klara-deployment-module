@@ -33,18 +33,16 @@ class DeploymentTask extends ModelBase
     protected string $objectsFrontendLabel = 'Deployment Tasks';
 
     /**
-     * @param  JsonResource|null  $jsonResource
      *
      * @return array
      */
-    public function getFormElements(?JsonResource $jsonResource = null): array
+    public function getFormElements(): array
     {
-        $parentFormData = parent::getFormElements($jsonResource);
+        $parentFormData = parent::getFormElements();
 
-        /** @var JsonResource|\Modules\KlaraDeployment\Models\DeploymentTask $jsonResource */
         return [
             ... $parentFormData,
-            'title'        => $this->makeFormTitle($jsonResource, 'name'),
+            'title'        => $this->makeFormTitle($this->jsonResource, 'name'),
             'tab_controls' => [
                 'base_item' => [
                     'tab_pages' => [

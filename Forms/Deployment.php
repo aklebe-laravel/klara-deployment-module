@@ -32,20 +32,18 @@ class Deployment extends ModelBase
     protected string $objectsFrontendLabel = 'Deployments';
 
     /**
-     * @param  JsonResource|null  $jsonResource
      *
      * @return array
      */
-    public function getFormElements(?JsonResource $jsonResource = null): array
+    public function getFormElements(): array
     {
-        $parentFormData = parent::getFormElements($jsonResource);
+        $parentFormData = parent::getFormElements();
 
         $defaultSettings = $this->getDefaultFormSettingsByPermission();
 
-        /** @var \Modules\KlaraDeployment\Models\Deployment $jsonResource */
         return [
             ... $parentFormData,
-            'title'        => $this->makeFormTitle($jsonResource, 'name'),
+            'title'        => $this->makeFormTitle($this->jsonResource, 'name'),
             'tab_controls' => [
                 'base_item' => [
                     'tab_pages' => [
@@ -131,7 +129,7 @@ class Deployment extends ModelBase
                         ],
                         [
                             // don't show if creating a new object ...
-                            'disabled' => !$jsonResource->getKey(),
+                            'disabled' => !$this->jsonResource->getKey(),
                             'tab'      => [
                                 'label' => __('Tasks'),
                             ],
