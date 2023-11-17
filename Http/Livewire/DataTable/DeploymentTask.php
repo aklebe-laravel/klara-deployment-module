@@ -35,6 +35,7 @@ class DeploymentTask extends BaseDataTable
      */
     public function getColumns(): array
     {
+        $pivotExists = (bool)data_get($this->parentData, 'id', false);
         return [
             [
                 'name'       => 'id',
@@ -62,11 +63,11 @@ class DeploymentTask extends BaseDataTable
             [
                 'name'       => 'pivot.position',
                 'label'      => __('Position'),
-                'searchable' => true,
-                'sortable'   => true,
+                'searchable' => $pivotExists,
+                'sortable'   => $pivotExists,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
-                'visible' => (bool)data_get($this->parentData, 'id', false),
+                'visible' => $pivotExists,
             ],
             [
                 'name'       => 'rating',
@@ -79,8 +80,8 @@ class DeploymentTask extends BaseDataTable
             [
                 'name'       => 'deployments_count',
                 'label'      => __('Rels'),
-                'searchable' => true,
-                'sortable'   => true,
+                'searchable' => $pivotExists,
+                'sortable'   => $pivotExists,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
             ],
