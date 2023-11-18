@@ -72,12 +72,15 @@ class Deployment extends BaseDataTable
                 'label'      => __('Label'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
+                'options'    => [
+                    'has_open_link' => $this->canEdit(),
+                    'str_limit'     => 30,
+                ],
                 'css_all'    => 'w-30',
             ],
             //            [
             //                'name'       => 'updated_at',
-            //                'label'      => __('Updated'),
+            //                'label'      => __('Updated At'),
             //                'searchable' => true,
             //                'sortable'   => true,
             //                'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
@@ -107,7 +110,7 @@ class Deployment extends BaseDataTable
     //        $builder = (SystemHelper::NamespaceEloquentModel.$this->getModelName())::query();//->withPivot(['is_enabled', 'position']);
     //        Log::debug($builder->toSql());
     //
-    ////        if ($this->useUserFilter) {
+    ////        if ($this->useCollectionUserFilter) {
     ////
     ////            $builder->whereUserId($this->getUserId());
     ////

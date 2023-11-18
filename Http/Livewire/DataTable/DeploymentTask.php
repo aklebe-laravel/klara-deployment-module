@@ -90,7 +90,10 @@ class DeploymentTask extends BaseDataTable
                 'label'      => __('Label'),
                 'searchable' => true,
                 'sortable'   => true,
-                'view'       => 'data-table::livewire.js-dt.tables.columns.value-click-edit',
+                'options'    => [
+                    'has_open_link' => $this->canEdit(),
+                    'str_limit'     => 30,
+                ],
                 'css_all'    => 'w-25',
             ],
             [
@@ -103,7 +106,7 @@ class DeploymentTask extends BaseDataTable
             ],
             [
                 'name'       => 'updated_at',
-                'label'      => __('Updated'),
+                'label'      => __('Updated At'),
                 'searchable' => true,
                 'sortable'   => true,
                 'view'       => 'data-table::livewire.js-dt.tables.columns.datetime-since',
