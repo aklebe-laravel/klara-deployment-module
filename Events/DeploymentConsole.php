@@ -2,11 +2,10 @@
 
 namespace Modules\KlaraDeployment\Events;
 
+use Illuminate\Broadcasting\Channel;
 use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
-use Illuminate\Support\Facades\Log;
-use Illuminate\Support\Str;
 
 class DeploymentConsole implements ShouldBroadcast
 {
@@ -31,18 +30,22 @@ class DeploymentConsole implements ShouldBroadcast
     /**
      * Get the channels the event should broadcast on.
      *
-     * @return array<int, \Illuminate\Broadcasting\Channel>
+     * @return array<int, Channel>
      */
     public function broadcastOn(): array
     {
-        //        $channelName = 'deployments.'.$this->processContainer['deployment_id'];
-        $channelName = app('php_to_js')->get('default_console_channel');
+        if (app('website_base_config')->get('broadcast.enabled', false)) {
 
-        //        Log::debug(__METHOD__);
-        //        Log::debug($channelName);
-        return [
-            new PrivateChannel($channelName),
-        ];
+            //        $channelName = 'deployments.'.$this->processContainer['deployment_id'];
+            $channelName = app('php_to_js')->get('default_console_channel');
+
+            return [
+                new PrivateChannel($channelName),
+            ];
+
+        }
+
+        return [];
     }
 
     /**
