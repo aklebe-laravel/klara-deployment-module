@@ -28,7 +28,7 @@ class Deployment extends BaseDataTable
         parent::initMount();
 
         // @todo: Not sure mount() is the right place for init this once
-        $this->setSortAllCollections('rating', 'desc');
+        $this->setSortAllCollections('rating', 'desc', true);
     }
 
     /**

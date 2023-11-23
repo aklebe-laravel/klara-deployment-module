@@ -21,12 +21,12 @@ class DeploymentTask extends BaseDataTable
 
         // @todo: Not sure mount() is the right place for init this once
         if (data_get($this->parentData, 'id', false)) {
-            $this->setSortAllCollections('deployment.pivot.position', 'asc');
-            $this->setSortAllCollections('rating', 'desc');
+            $this->setSortAllCollections('deployment.pivot.position', 'asc', true);
+            $this->setSortAllCollections('rating', 'desc', true);
         } else {
-            $this->setSortAllCollections('rating', 'desc');
-            $this->setSortAllCollections('deployments_count', 'desc');
-            $this->setSortAllCollections('updated_at', 'desc');
+            $this->setSortAllCollections('rating', 'desc', true);
+            $this->setSortAllCollections('deployments_count', 'desc', true);
+            $this->setSortAllCollections('updated_at', 'desc', true);
         }
     }
 
