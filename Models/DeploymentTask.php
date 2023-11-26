@@ -10,6 +10,27 @@ use Illuminate\Support\Str;
 use Modules\Acl\Models\Base\TraitBaseModel;
 use Modules\SystemBase\Models\Base\TraitModelAddMeta;
 
+/**
+ * Modules\KlaraDeployment\Models\DeploymentTask
+ *
+ * @property int $id
+ * @property int $is_enabled disable this task for all deployments
+ * @property int $rating
+ * @property string|null $code unique dotted namespace
+ * @property string|null $label label/short description
+ * @property string|null $description description what this task will do
+ * @property array|null $command_list json of commands
+ * @property array|null $var_list json of vars merged with deployment vars
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\KlaraDeployment\Models\Deployment> $deployments
+ * @property-read int|null $deployments_count
+ * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask loadByFrontend(?mixed $fieldValue, string $fieldNonNumeric)
+ * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask newModelQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask newQuery()
+ * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask query()
+ * @mixin \Eloquent
+ */
 class DeploymentTask extends Model
 {
     use TraitBaseModel;
