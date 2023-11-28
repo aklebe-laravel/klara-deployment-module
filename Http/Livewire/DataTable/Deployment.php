@@ -21,6 +21,9 @@ class Deployment extends BaseDataTable
     //    }
 
     /**
+     * Runs once, immediately after the component is instantiated, but before render() is called.
+     * This is only called once on initial page load and never called again, even on component refreshes
+     *
      * @return void
      */
     protected function initMount(): void
@@ -29,6 +32,22 @@ class Deployment extends BaseDataTable
 
         // @todo: Not sure mount() is the right place for init this once
         $this->setSortAllCollections('rating', 'desc', true);
+    }
+
+    /**
+     * Runs on every request, after the component is mounted or hydrated, but before any update methods are called
+     *
+     * @return void
+     */
+    protected function initBooted(): void
+    {
+        parent::initBooted();
+
+        $this->rowCommands = [
+            'launch_item'   => 'data-table::livewire.js-dt.tables.columns.buttons.launch-item',
+            'simulate_item' => 'data-table::livewire.js-dt.tables.columns.buttons.simulate-item',
+            ...$this->rowCommands
+        ];
     }
 
     /**
@@ -93,43 +112,6 @@ class Deployment extends BaseDataTable
                 'view'       => 'klara-deployment::livewire.js-dt.tables.columns.deployment-details',
                 'css_all'    => 'w-40',
             ],
-        ];
-    }
-
-    //    /**
-    //     * The base builder before all filter manipulations.
-    //     * Usually used for all collections (default, selected, unselected), but can overwritten.
-    //     *
-    //     * @param  string  $collectionName
-    //     *
-    //     * @return Builder|null
-    //     */
-    //    public function getBaseBuilder(string $collectionName): ?Builder
-    //    {
-    //        /** @var Builder $builder */
-    //        $builder = (SystemHelper::NamespaceEloquentModel.$this->getModelName())::query();//->withPivot(['is_enabled', 'position']);
-    //        Log::debug($builder->toSql());
-    //
-    ////        if ($this->useCollectionUserFilter) {
-    ////
-    ////            $builder->whereUserId($this->getUserId());
-    ////
-    ////        }
-    //
-    //        return $builder;
-    //    }
-
-    /**
-     * @return array
-     */
-    public function getActionsColumn(): array
-    {
-        return [
-            'label'   => 'Actions',
-            //            'visible' => fn() => $this->editable,
-            'visible' => true,
-            'view'    => 'data-table::livewire.js-dt.tables.columns.run',
-            'css_all' => 'text-end w-15',
         ];
     }
 

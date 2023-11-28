@@ -13,6 +13,9 @@ class DeploymentTask extends BaseDataTable
     protected array $objectRelations = ['deployments'];
 
     /**
+     * Runs once, immediately after the component is instantiated, but before render() is called.
+     * This is only called once on initial page load and never called again, even on component refreshes
+     *
      * @return void
      */
     protected function initMount(): void
