@@ -8,30 +8,13 @@ use Modules\KlaraDeployment\Services\DeploymentService;
 
 class Deployment extends BaseDataTable
 {
-    //    /**
-    //     * @param $id
-    //     */
-    //    public function __construct($id = null)
-    //    {
-    //        parent::__construct($id);
-    //
-    //        $this->listeners += [
-    //            'launchItem' => 'launchItem',
-    //        ];
-    //    }
-
     /**
-     * Runs once, immediately after the component is instantiated, but before render() is called.
-     * This is only called once on initial page load and never called again, even on component refreshes
-     *
+     * Overwrite to init your sort orders before session exists
      * @return void
      */
-    protected function initMount(): void
+    protected function initSort(): void
     {
-        parent::initMount();
-
-        // @todo: Not sure mount() is the right place for init this once
-        $this->setSortAllCollections('rating', 'desc', true);
+        $this->setSortAllCollections('rating', 'desc');
     }
 
     /**
