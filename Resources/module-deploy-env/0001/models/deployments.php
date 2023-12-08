@@ -12,8 +12,8 @@ return [
         "res" => [
             // relation method which have to exists
             "method" => "tasks",
-            // column to search #sync_relations items below
-            "column" => "code",
+            // column(s) to find specific #sync_relations items below
+            "columns" => "code",
             // delete items if not listed here (default: false)
             "delete" => false,
         ],
