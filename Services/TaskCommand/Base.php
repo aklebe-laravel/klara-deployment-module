@@ -10,7 +10,6 @@ use Modules\KlaraDeployment\Events\DeploymentConsole;
 use Modules\KlaraDeployment\Models\Deployment;
 use Modules\KlaraDeployment\Models\DeploymentTask;
 use Modules\KlaraDeployment\Services\DeploymentTaskParserService;
-use Modules\SystemBase\Helpers\SystemHelper;
 use Modules\SystemBase\Services\Base\BaseService;
 
 class Base extends BaseService
@@ -154,10 +153,10 @@ class Base extends BaseService
     {
         $v1 = $this->deployment->var_list ?? [];
         $v2 = $this->deploymentTask->var_list ?? [];
-        $varList = SystemHelper::arrayMergeRecursiveDistinct($v1, $v2);
+        $varList = app('system_base')->arrayMergeRecursiveDistinct($v1, $v2);
 
         $v2 = $this->deploymentTask->pivot->var_list ?? [];
-        $varList = SystemHelper::arrayMergeRecursiveDistinct($varList, $v2);
+        $varList = app('system_base')->arrayMergeRecursiveDistinct($varList, $v2);
         return $varList;
     }
 

@@ -5,7 +5,6 @@ namespace Modules\KlaraDeployment\Services\TaskCommand;
 use Illuminate\Support\Facades\Storage;
 use Modules\KlaraDeployment\Models\Deployment;
 use Modules\KlaraDeployment\Models\DeploymentTask;
-use Modules\SystemBase\Helpers\FileHelper;
 use Modules\SystemBase\Rules\DirectoryRule;
 use Modules\SystemBase\Rules\DiskRule;
 use Modules\SystemBase\Rules\SubPathRule;
@@ -64,17 +63,17 @@ class Sftp extends Base
 
         // upload files ...
         $filesUploaded = 0;
-        FileHelper::runDirectoryFiles($src, function (string $file, array $sourcePathInfo) use (
+        app('system_base_file')->runDirectoryFiles($src, function (string $file, array $sourcePathInfo) use (
             $src,
             $dest,
             $fileSystem,
             $simulate,
             &$filesUploaded
         ) {
-            if (($fileRelativePart = FileHelper::subPath($file, $src)) !== null) {
+            if (($fileRelativePart = app('system_base_file')->subPath($file, $src)) !== null) {
 
                 //                    $this->debug(sprintf("Found file in src: %s", $fileRelativePart));
-                $uploadPath = FileHelper::getValidPath($dest.'/'.$fileRelativePart);
+                $uploadPath = app('system_base_file')->getValidPath($dest.'/'.$fileRelativePart);
                 $uploadPathInfo = pathinfo($uploadPath);
 
                 // streaming with putFile instead of put() to save resources

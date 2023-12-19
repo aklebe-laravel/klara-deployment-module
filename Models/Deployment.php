@@ -4,10 +4,8 @@ namespace Modules\KlaraDeployment\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Support\Facades\Log;
 use Illuminate\Support\Str;
 use Modules\Acl\Models\Base\TraitBaseModel;
-use Modules\SystemBase\Helpers\SystemHelper;
 
 /**
  * Modules\KlaraDeployment\Models\Deployment
@@ -80,7 +78,7 @@ class Deployment extends Model
     public function enabledTasks(): BelongsToMany
     {
         // find table name to avoid ambiguous columns
-        $tableName = SystemHelper::getModelTable(DeploymentTask::class);
+        $tableName = app('system_base')->getModelTable(DeploymentTask::class);
         return $this->tasks()->where($tableName.'.is_enabled', true)->wherePivot('is_enabled', true);
     }
 

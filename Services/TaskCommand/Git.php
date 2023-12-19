@@ -4,7 +4,6 @@ namespace Modules\KlaraDeployment\Services\TaskCommand;
 
 use Modules\KlaraDeployment\Models\Deployment;
 use Modules\KlaraDeployment\Models\DeploymentTask;
-use Modules\SystemBase\Helpers\FileHelper;
 use Modules\SystemBase\Services\GitService;
 
 class Git extends Base
@@ -32,7 +31,7 @@ class Git extends Base
     {
         $justCreated = false;
         if (!is_dir($gitDestFullPath)) {
-            FileHelper::createDir($gitDestFullPath);
+            app('system_base_file')->createDir($gitDestFullPath);
             if (!is_dir($gitDestFullPath)) {
                 $this->error(sprintf("Unable to create directory: %s", $gitDestFullPath));
                 return false;
