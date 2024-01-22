@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Log;
 use Psr\Log\LogLevel;
 
 /**
- * Just used to extend jumble sales commands!
+ * Just used to extend deployment commands!
  */
 class DeploymentBaseInherit extends Command
 {
@@ -64,22 +64,6 @@ class DeploymentBaseInherit extends Command
 
         return $env;
     }
-
-//    /**
-//     * @return array
-//     */
-//    protected function getEnvProfile(): array
-//    {
-//        $env = $this->getYArgDeploymentCode();
-//        $configProfilePath = 'jumble_sale.deployment.profiles.' . $env;
-//        if ($configProfile = config($configProfilePath, [])) {
-//            return $configProfile;
-//        }
-//
-//        $this->output->error('Missing Config: ' . $configProfilePath);
-//
-//        return [];
-//    }
 
     /**
      * Print out and log the message.
