@@ -5,7 +5,7 @@
     "keywords": [],
     "priority": 5000,
     "providers": [
-        "Modules\\KlaraDeployment\\Providers\\KlaraDeploymentServiceProvider"
+        "Modules\\KlaraDeployment\\app\\Providers\\KlaraDeploymentServiceProvider"
     ],
     "files": []
 }

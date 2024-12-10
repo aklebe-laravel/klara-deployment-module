@@ -12,14 +12,20 @@
         "laravel": {
             "providers": [],
             "aliases": {
-
             }
         },
         "module-dir": "KlaraDeployment"
     },
     "autoload": {
         "psr-4": {
-            "Modules\\KlaraDeployment\\": ""
+            "Modules\\KlaraDeployment\\": "",
+            "Modules\\KlaraDeployment\\database\\factories\\": "database/factories/",
+            "Modules\\KlaraDeployment\\database\\seeders\\": "database/seeders/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Modules\\KlaraDeployment\\tests\\": "tests/"
         }
     }
 }

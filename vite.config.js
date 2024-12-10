@@ -1,7 +1,7 @@
 const dotenvExpand = require('dotenv-expand');
-dotenvExpand(require('dotenv').config({ path: '../../.env'/*, debug: true*/}));
+dotenvExpand(require('dotenv').config({path: '../../.env'/*, debug: true*/}));
 
-import { defineConfig } from 'vite';
+import {defineConfig} from 'vite';
 import laravel from 'laravel-vite-plugin';
 
 export default defineConfig({
@@ -15,8 +15,8 @@ export default defineConfig({
             publicDirectory: '../../public',
             buildDirectory: 'build-klara-deployment',
             input: [
-                __dirname + '/Resources/assets/sass/app.scss',
-                __dirname + '/Resources/assets/js/app.js'
+                __dirname + '/resources/assets/sass/app.scss',
+                __dirname + '/resources/assets/js/app.js'
             ],
             refresh: true,
         }),
