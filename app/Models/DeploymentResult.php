@@ -5,17 +5,7 @@ namespace Modules\KlaraDeployment\app\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Modules\KlaraDeployment\Models\DeploymentResult
  *
- * @property int $id
- * @property int $deployment_id
- * @property array|null $results json of result
- * @property \Illuminate\Support\Carbon|null $created_at
- * @property \Illuminate\Support\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentResult newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentResult newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentResult query()
- * @mixin \Eloquent
  */
 class DeploymentResult extends Model
 {

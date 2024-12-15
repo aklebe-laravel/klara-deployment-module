@@ -2,6 +2,7 @@
 
 namespace Modules\KlaraDeployment\app\Http\Livewire\DataTable;
 
+use Exception;
 use Illuminate\Database\Eloquent\Builder;
 use Modules\DataTable\app\Http\Livewire\DataTable\Base\BaseDataTable;
 
@@ -14,6 +15,7 @@ class DeploymentTask extends BaseDataTable
 
     /**
      * Overwrite to init your sort orders before session exists
+     *
      * @return void
      */
     protected function initSort(): void
@@ -34,7 +36,8 @@ class DeploymentTask extends BaseDataTable
      */
     public function getColumns(): array
     {
-        $pivotExists = (bool)data_get($this->parentData, 'id', false);
+        $pivotExists = (bool) data_get($this->parentData, 'id', false);
+
         return [
             [
                 'name'       => 'id',
@@ -52,21 +55,21 @@ class DeploymentTask extends BaseDataTable
                 'sortable' => true,
             ],
             [
-                'name'     => 'pivot.is_enabled',
+                'name'     => 'deployment.pivot.is_enabled',
                 'label'    => __('Enabled'),
                 'view'     => 'data-table::livewire.js-dt.tables.columns.bool-red-green',
                 'css_all'  => 'text-center w-5',
                 'sortable' => true,
-                'visible' => (bool)data_get($this->parentData, 'id', false),
+                'visible'  => (bool) data_get($this->parentData, 'id', false),
             ],
             [
-                'name'       => 'pivot.position',
+                'name'       => 'deployment.pivot.position',
                 'label'      => __('Position'),
                 'searchable' => $pivotExists,
                 'sortable'   => $pivotExists,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
-                'visible' => $pivotExists,
+                'visible'    => $pivotExists,
             ],
             [
                 'name'       => 'rating',
@@ -79,7 +82,7 @@ class DeploymentTask extends BaseDataTable
             [
                 'name'       => 'deployments_count',
                 'label'      => __('Rels'),
-                'searchable' => $pivotExists,
+                'searchable' => false,
                 'sortable'   => $pivotExists,
                 'format'     => 'number',
                 'css_all'    => 'font-monospace text-end w-5',
@@ -100,7 +103,6 @@ class DeploymentTask extends BaseDataTable
                 'label'      => __('Description'),
                 'visible'    => true,
                 'searchable' => true,
-//                'view'       => 'data-table::livewire.js-dt.tables.columns.model-info',
                 'css_all'    => 'w-35',
             ],
             [
@@ -117,31 +119,14 @@ class DeploymentTask extends BaseDataTable
      * used for all not self::COLLECTION_NAME_SELECTED_ITEMS
      *
      * @param  string  $collectionName
+     *
      * @return Builder|null
-     * @throws \Exception
+     * @throws Exception
      */
     public function getBaseBuilder(string $collectionName): ?Builder
     {
-        // add "deployments_count"
+        // incl "deployments_count"
         return parent::getBaseBuilder($collectionName)->withCount('deployments');
-    }
-
-    /**
-     * used for all self::COLLECTION_NAME_SELECTED_ITEMS
-     *
-     * @param  string  $collectionName
-     * @return \Illuminate\Support\Collection|null
-     */
-    public function getFixCollection(string $collectionName): ?\Illuminate\Support\Collection
-    {
-        if ($collectionName === self::COLLECTION_NAME_SELECTED_ITEMS) {
-            if ($this->parentData['id']) {
-                $user = app(\Modules\KlaraDeployment\app\Models\Deployment::class)->with([])->find($this->parentData['id']);
-                return $user->tasks;
-            }
-        }
-
-        return parent::getFixCollection($collectionName);
     }
 
 }

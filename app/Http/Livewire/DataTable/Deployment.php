@@ -2,6 +2,8 @@
 
 namespace Modules\KlaraDeployment\app\Http\Livewire\DataTable;
 
+use Exception;
+use Livewire\Attributes\On;
 use Modules\DataTable\app\Http\Livewire\DataTable\Base\BaseDataTable;
 use Modules\KlaraDeployment\app\Models\Deployment as DeploymentModel;
 use Modules\KlaraDeployment\app\Services\DeploymentService;
@@ -105,8 +107,9 @@ class Deployment extends BaseDataTable
      * @param  mixed  $itemId
      * @param  bool  $simulate
      * @return bool
-     * @throws \Exception
+     * @throws Exception
      */
+    #[On('launch-item')]
     public function launchItem(mixed $livewireId, mixed $itemId, bool $simulate = false): bool
     {
         if (!parent::launchItem($livewireId, $itemId)) {

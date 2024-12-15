@@ -20,15 +20,27 @@ class Deployment extends ModelBase
 
     /**
      * Einzahl
+     *
      * @var string
      */
     protected string $objectFrontendLabel = 'Deployment';
 
     /**
      * Mehrzahl
+     *
      * @var string
      */
     protected string $objectsFrontendLabel = 'Deployments';
+
+    /**
+     * @return array
+     */
+    public function makeObjectInstanceDefaultValues(): array
+    {
+        return array_merge(parent::makeObjectInstanceDefaultValues(), [
+            'rating' => 5000,
+        ]);
+    }
 
     /**
      *
@@ -57,14 +69,17 @@ class Deployment extends ModelBase
                                         'label'        => __('ID'),
                                         'validator'    => [
                                             'nullable',
-                                            'integer'
+                                            'integer',
                                         ],
                                     ],
                                     'is_enabled'  => [
                                         'html_element' => 'select_yes_no',
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Deployment'),
-                                        'validator'    => 'bool',
+                                        'validator'    => [
+                                            'nullable',
+                                            'bool',
+                                        ],
                                         'css_group'    => 'col-3',
                                     ],
                                     'rating'      => [
@@ -74,7 +89,7 @@ class Deployment extends ModelBase
                                         'validator'    => [
                                             'integer',
                                             'Min:200',
-                                            'Max:99999'
+                                            'Max:99999',
                                         ],
                                         'css_group'    => 'col-3',
                                     ],
@@ -85,7 +100,7 @@ class Deployment extends ModelBase
                                         'validator'    => [
                                             'required',
                                             'string',
-                                            'Max:255'
+                                            'Max:255',
                                         ],
                                         'css_group'    => 'col-6',
                                     ],
@@ -96,7 +111,7 @@ class Deployment extends ModelBase
                                         'validator'    => [
                                             'required',
                                             'string',
-                                            'Max:255'
+                                            'Max:255',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -107,7 +122,7 @@ class Deployment extends ModelBase
                                         'validator'    => [
                                             'nullable',
                                             'string',
-                                            'Max:30000'
+                                            'Max:30000',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -119,7 +134,7 @@ class Deployment extends ModelBase
                                         'validator'    => [
                                             'nullable',
                                             'string',
-                                            'Max:50000'
+                                            'Max:50000',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -151,7 +166,7 @@ class Deployment extends ModelBase
                                         ],
                                         'validator'    => [
                                             'nullable',
-                                            'array'
+                                            'array',
                                         ],
                                     ],
                                 ],

@@ -9,25 +9,7 @@ use Illuminate\Support\Str;
 use Modules\SystemBase\app\Models\Base\TraitModelAddMeta;
 
 /**
- * Modules\KlaraDeployment\Models\DeploymentTask
  *
- * @property int                                                                                                $id
- * @property int                                                                                                $is_enabled disable this task for all deployments
- * @property int                                                                                                $rating
- * @property string|null                                                                                        $code unique dotted namespace
- * @property string|null                                                                                        $label label/short description
- * @property string|null                                                                                        $description description what this task will do
- * @property array|null                                                                                         $command_list json of commands
- * @property array|null                                                                                         $var_list json of vars merged with deployment vars
- * @property \Illuminate\Support\Carbon|null                                                                    $created_at
- * @property \Illuminate\Support\Carbon|null                                                                    $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection<int, \Modules\KlaraDeployment\app\Models\Deployment> $deployments
- * @property-read int|null                                                                                      $deployments_count
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask loadByFrontend(?mixed $fieldValue, string $fieldNonNumeric)
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask newQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|DeploymentTask query()
- * @mixin \Eloquent
  */
 class DeploymentTask extends Model
 {
@@ -61,6 +43,13 @@ class DeploymentTask extends Model
         'var_list'     => 'array',
     ];
 
+    ///**
+    // * You can use this instead of newFactory()
+    // *
+    // * @var string
+    // */
+    //public static string $factory = DeploymentTaskFactory::class;
+
     /**
      * Ordered by position ASC.
      * If positions equal, ordered by created_at ASC.
@@ -69,14 +58,30 @@ class DeploymentTask extends Model
      */
     public function deployments(): BelongsToMany
     {
+        //Log::info("XXX", [__METHOD__]);
         return $this->belongsToMany(Deployment::class)
-            ->using(DeploymentDeploymentTask::class)
-            ->withTimestamps()
-            ->orderByPivot('position')
-            ->orderByPivot('created_at')
+                    ->using(DeploymentDeploymentTask::class)
+                    ->withTimestamps()
+                    ->orderByPivot('position')
+                    ->orderByPivot('created_at')
             //            ->wherePivot('deployment_id', $this->id)
-            ->withPivot(['is_enabled', 'position', 'var_list']);
+                    ->withPivot(['is_enabled', 'position', 'var_list']);
     }
+
+    ///**
+    // * Ordered by position ASC.
+    // * If positions equal, ordered by created_at ASC.
+    // *
+    // * @return BelongsToMany
+    // */
+    //public function deployment()
+    //{
+    //    if ($this->relatedPivotModelId) {
+    //        return $this->deployments()->where('deployment_id', $this->relatedPivotModelId);
+    //    }
+    //
+    //    return $this->deployments()->whereId(false);
+    //}
 
     /**
      * Returns null if $this->relatedPivotModelId missing.
@@ -87,7 +92,10 @@ class DeploymentTask extends Model
     {
         return Attribute::make(get: function ($v) {
             if ($this->relatedPivotModelId) {
-                return $this->deployments()->where('deployment_id', $this->relatedPivotModelId)->first();
+                return $this->deployments()
+                    //->withPivot(['is_enabled', 'position', 'var_list'])
+                            ->where('deployment_id', $this->relatedPivotModelId)
+                            ->first();
             }
 
             return null;
@@ -101,6 +109,7 @@ class DeploymentTask extends Model
      * but before save()
      *
      * @param  Model  $fromItem
+     *
      * @return void
      */
     public function afterReplicated(Model $fromItem): void
@@ -115,7 +124,7 @@ class DeploymentTask extends Model
      */
     public function getReplicateRelations(): array
     {
-        //        return ['deployments']; // DO NOT ADD THIS!
+        // return ['deployments']; // DO NOT ADD THIS!
         return [];
     }
 

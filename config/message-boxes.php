@@ -3,23 +3,23 @@ return [
     'deployment' => [
         'data-table' => [
             // launch
-            'launchItem'   => [
+            'launch-item'   => [
                 'title'   => 'Launch Item',
                 'content' => 'ask_launch_item',
                 // constant names from defaultActions[] or closure
                 'actions' => [
                     'cancel',
-                    'launchItem',
+                    'launch-item',
                 ],
             ],
             // simulate
-            'simulateItem' => [
+            'simulate-item' => [
                 'title'   => 'Simulate Item',
                 'content' => 'ask_simulate_item',
                 // constant names from defaultActions[] or closure
                 'actions' => [
                     'cancel',
-                    'simulateItem',
+                    'simulate-item',
                 ],
             ],
         ],
