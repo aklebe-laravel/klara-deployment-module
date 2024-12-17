@@ -9,7 +9,7 @@ use Illuminate\Support\Str;
 use Modules\SystemBase\app\Models\Base\TraitModelAddMeta;
 
 /**
- *
+ * @mixin IdeHelperDeploymentTask
  */
 class DeploymentTask extends Model
 {
@@ -67,21 +67,6 @@ class DeploymentTask extends Model
             //            ->wherePivot('deployment_id', $this->id)
                     ->withPivot(['is_enabled', 'position', 'var_list']);
     }
-
-    ///**
-    // * Ordered by position ASC.
-    // * If positions equal, ordered by created_at ASC.
-    // *
-    // * @return BelongsToMany
-    // */
-    //public function deployment()
-    //{
-    //    if ($this->relatedPivotModelId) {
-    //        return $this->deployments()->where('deployment_id', $this->relatedPivotModelId);
-    //    }
-    //
-    //    return $this->deployments()->whereId(false);
-    //}
 
     /**
      * Returns null if $this->relatedPivotModelId missing.

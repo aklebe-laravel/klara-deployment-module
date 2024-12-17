@@ -5,7 +5,7 @@ namespace Modules\KlaraDeployment\app\Models;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- *
+ * @mixin IdeHelperDeploymentResult
  */
 class DeploymentResult extends Model
 {

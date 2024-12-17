@@ -8,7 +8,7 @@ use Illuminate\Support\Str;
 use Modules\WebsiteBase\app\Models\Base\TraitBaseModel;
 
 /**
- *
+ * @mixin IdeHelperDeployment
  */
 class Deployment extends Model
 {

@@ -5,7 +5,7 @@ namespace Modules\KlaraDeployment\app\Models;
 use Illuminate\Database\Eloquent\Relations\Pivot;
 
 /**
- *
+ * @mixin IdeHelperDeploymentDeploymentTask
  */
 class DeploymentDeploymentTask extends Pivot
 {
