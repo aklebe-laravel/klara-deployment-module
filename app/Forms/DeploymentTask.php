@@ -40,7 +40,7 @@ class DeploymentTask extends ModelBase
 
         return [
             ... $parentFormData,
-            'title'        => $this->makeFormTitle($this->jsonResource, 'name'),
+            'title'        => $this->makeFormTitle($this->getDataSource(), 'name'),
             'tab_controls' => [
                 'base_item' => [
                     'tab_pages' => [
@@ -135,7 +135,7 @@ class DeploymentTask extends ModelBase
                             ],
                         ],
                         [
-                            'visible' => $this->jsonResource->deployment->id ?? false, // visible if parent deployment is the caller
+                            'visible' => $this->getDataSource()->deployment->id ?? false, // visible if parent deployment is the caller
                             'tab'     => [
                                 'label' => __('Deployment Relation'),
                             ],
