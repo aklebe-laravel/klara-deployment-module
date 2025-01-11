@@ -34,7 +34,7 @@ class DeploymentConsole implements ShouldBroadcast
      */
     public function broadcastOn(): array
     {
-        if (app('website_base_config')->get('broadcast.enabled', false)) {
+        if (app('website_base_config')->getValue('broadcast.enabled', false)) {
 
             //        $channelName = 'deployments.'.$this->processContainer['deployment_id'];
             $channelName = app('php_to_js')->get('default_console_channel');

@@ -58,7 +58,7 @@ class Deployment extends DeploymentBaseInherit
         $this->message(sprintf("Deployment loaded '%s': '%s'", $deployment->code, $deployment->label), LogLevel::INFO);
         $this->message(sprintf("Enabled tasks %d/%d", $deployment->enabledTasks->count(), $deployment->tasks->count()), LogLevel::INFO);
 
-        $deploymentService = new DeploymentService();
+        $deploymentService = app(DeploymentService::class);
         if ($this->option('simulate')) {
             $this->message(sprintf("SIMULATING deployment: %s", $deployment->code), LogLevel::INFO);
             $deploymentService->simulate($deployment);
