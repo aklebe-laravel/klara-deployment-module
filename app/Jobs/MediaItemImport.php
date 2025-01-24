@@ -9,12 +9,10 @@ use Illuminate\Queue\InteractsWithQueue;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Support\Facades\Log;
 use Modules\DeployEnv\app\Events\ImportContent;
+use Modules\SystemBase\app\Models\JsonViewResponse;
 use Modules\WebsiteBase\app\Models\MediaItem;
 use Modules\WebsiteBase\app\Services\MediaService;
 use Modules\WebsiteBase\app\Services\SendNotificationService;
-use Psr\Container\ContainerExceptionInterface;
-use Psr\Container\NotFoundExceptionInterface;
-use Telegram\Bot\Exceptions\TelegramSDKException;
 
 class MediaItemImport implements ShouldQueue
 {
@@ -25,6 +23,9 @@ class MediaItemImport implements ShouldQueue
      */
     public MediaItem $mediaItem;
 
+    /**
+     * @var array|string[]
+     */
     protected array $importObjectTypeMap = [
         MediaItem::OBJECT_TYPE_IMPORT_PRODUCT  => 'product',
         MediaItem::OBJECT_TYPE_IMPORT_USER     => 'user',
@@ -45,14 +46,9 @@ class MediaItemImport implements ShouldQueue
      * Execute the job.
      *
      * @return void
-     * @throws ContainerExceptionInterface
-     * @throws NotFoundExceptionInterface
-     * @throws TelegramSDKException
      */
     public function handle(): void
     {
-        // Log::debug(sprintf("Handle offer (%s), status: %s.", $this->offer->id, $this->offer->status), [__METHOD__]);
-
         // Checking the new status ...
         switch ($this->mediaItem->media_type) {
 
@@ -68,14 +64,16 @@ class MediaItemImport implements ShouldQueue
                         if (($importFile = $mediaService->getMediaItemPath($this->mediaItem)) && (is_file($importFile))) {
 
                             $importFilePathInfo = pathinfo($importFile);
+                            $results = new JsonViewResponse();
                             // starting the import
-                            ImportContent::dispatch($type, $importFilePathInfo, $this->mediaItem->user_id);
+                            ImportContent::dispatch($type, $importFilePathInfo, $this->mediaItem->user_id, $results);
 
                             // send a notification
                             /** @var SendNotificationService $sendNotificationService */
                             $sendNotificationService = app(SendNotificationService::class);
                             $sendNotificationService->sendNotificationConcern('market_media_item_import', $this->mediaItem->user_id, [
                                 'media_item' => $this->mediaItem,
+                                'results' => $results,
                             ]);
 
                         } else {
