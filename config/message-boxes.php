@@ -8,8 +8,8 @@ return [
                 'content' => 'ask_launch_item',
                 // constant names from defaultActions[] or closure
                 'actions' => [
-                    'cancel',
-                    'launch-item',
+                    'system-base::cancel',
+                    'system-base::launch-item',
                 ],
             ],
             // simulate
@@ -18,8 +18,8 @@ return [
                 'content' => 'ask_simulate_item',
                 // constant names from defaultActions[] or closure
                 'actions' => [
-                    'cancel',
-                    'simulate-item',
+                    'system-base::cancel',
+                    'system-base::simulate-item',
                 ],
             ],
         ],
