@@ -3,6 +3,7 @@
 namespace Modules\KlaraDeployment\app\Forms;
 
 use Modules\Form\app\Forms\Base\ModelBase;
+use Modules\WebsiteBase\app\Services\WebsiteBaseFormService;
 
 class DeploymentTask extends ModelBase
 {
@@ -15,20 +16,32 @@ class DeploymentTask extends ModelBase
      * @var array[]
      */
     protected array $objectRelations = [
-        'deployments'
+        'deployments',
     ];
 
     /**
      * Einzahl
+     *
      * @var string
      */
     protected string $objectFrontendLabel = 'Deployment Task';
 
     /**
      * Mehrzahl
+     *
      * @var string
      */
     protected string $objectsFrontendLabel = 'Deployment Tasks';
+
+    /**
+     * @return array
+     */
+    public function makeObjectInstanceDefaultValues(): array
+    {
+        return array_merge(parent::makeObjectInstanceDefaultValues(), [
+            'is_enabled' => 0,
+        ]);
+    }
 
     /**
      *
@@ -37,6 +50,9 @@ class DeploymentTask extends ModelBase
     public function getFormElements(): array
     {
         $parentFormData = parent::getFormElements();
+
+        /** @var WebsiteBaseFormService $formService */
+        $formService = app(WebsiteBaseFormService::class);
 
         return [
             ... $parentFormData,
@@ -55,11 +71,12 @@ class DeploymentTask extends ModelBase
                                         'label'        => __('ID'),
                                         'validator'    => [
                                             'nullable',
-                                            'integer'
+                                            'integer',
                                         ],
                                     ],
                                     'is_enabled'   => [
-                                        'html_element' => 'select_yes_no',
+                                        'html_element' => 'select',
+                                        'options'      => $formService::getFormElementYesOrNoOptions(),
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Task'),
                                         'validator'    => 'bool',
@@ -72,7 +89,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'integer',
                                             'Min:200',
-                                            'Max:99999'
+                                            'Max:99999',
                                         ],
                                         'css_group'    => 'col-3',
                                     ],
@@ -83,7 +100,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'required',
                                             'string',
-                                            'Max:255'
+                                            'Max:255',
                                         ],
                                         'css_group'    => 'col-6',
                                     ],
@@ -94,7 +111,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'required',
                                             'string',
-                                            'Max:255'
+                                            'Max:255',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -105,7 +122,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'nullable',
                                             'string',
-                                            'Max:30000'
+                                            'Max:30000',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -116,7 +133,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'nullable',
                                             'string',
-                                            'Max:50000'
+                                            'Max:50000',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -127,7 +144,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'nullable',
                                             'string',
-                                            'Max:50000'
+                                            'Max:50000',
                                         ],
                                         'css_group'    => 'col-12',
                                     ],
@@ -142,7 +159,8 @@ class DeploymentTask extends ModelBase
                             'content' => [
                                 'form_elements' => [
                                     'deployment.pivot.is_enabled' => [
-                                        'html_element' => 'select_yes_no',
+                                        'html_element' => 'select',
+                                        'options'      => $formService::getFormElementYesOrNoOptions(),
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Task'),
                                         'validator'    => 'bool',
@@ -155,7 +173,7 @@ class DeploymentTask extends ModelBase
                                         'validator'    => [
                                             'integer',
                                             'Min:200',
-                                            'Max:99999'
+                                            'Max:99999',
                                         ],
                                         'css_group'    => 'col-3',
                                     ],

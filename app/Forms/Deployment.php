@@ -3,6 +3,7 @@
 namespace Modules\KlaraDeployment\app\Forms;
 
 use Modules\Form\app\Forms\Base\ModelBase;
+use Modules\WebsiteBase\app\Services\WebsiteBaseFormService;
 
 class Deployment extends ModelBase
 {
@@ -50,6 +51,9 @@ class Deployment extends ModelBase
     {
         $parentFormData = parent::getFormElements();
 
+        /** @var WebsiteBaseFormService $formService */
+        $formService = app(WebsiteBaseFormService::class);
+
         $defaultSettings = $this->getDefaultFormSettingsByPermission();
 
         return [
@@ -73,7 +77,8 @@ class Deployment extends ModelBase
                                         ],
                                     ],
                                     'is_enabled'  => [
-                                        'html_element' => 'select_yes_no',
+                                        'html_element' => 'select',
+                                        'options'      => $formService::getFormElementYesOrNoOptions(),
                                         'label'        => __('Enabled'),
                                         'description'  => __('Enable/Disable this Deployment'),
                                         'validator'    => [
